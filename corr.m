@@ -1,12 +1,22 @@
 close all;
 clear all;
 
-paths = getPaths('/home/ruiy/store/data/ruiy/alice/2019-04-01-*/calculated_csi.bin');
+figure(1)
+paths = getPaths('/home/ruiy/store/data/ruiy/bob/2019-04-01-*/calculated_csi.bin');
 data = readData(paths);
 
-figure(1)
+data = abs(data);
+
+% 均值化为0
+avg = mean(data);
+data = data - avg;
+
+% 能量归一化 
+energe = sum(data .* data);
+data = data ./ sqrt(energe);
+
 for i=1: size(data, 2)
-    [a, b] = xcorr(data(:, i), 'unbiased');
+    [a, b] = xcorr(data(:, i), 'coeff');
     hold on
-    plot(b, abs(a));
+    plot(b(length(b)/2: end), a(length(a)/2: end));
 end
