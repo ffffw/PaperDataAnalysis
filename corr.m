@@ -2,8 +2,9 @@ close all;
 clear all;
 
 figure(1)
-paths = getPaths('/home/ruiy/store/data/ruiy/bob/2019-04-01-*/calculated_csi.bin');
+paths = getPaths('/home/ruiy/store/data/ruiy/alice/2019-04-01-*/calculated_csi.bin');
 data = readData(paths);
+% data = data(:, 1:100);
 
 data = abs(data);
 
@@ -15,8 +16,10 @@ data = data - avg;
 energe = sum(data .* data);
 data = data ./ sqrt(energe);
 
+sum = 0;
 for i=1: size(data, 2)
     [a, b] = xcorr(data(:, i), 'coeff');
-    hold on
-    plot(b(length(b)/2: end), a(length(a)/2: end));
+    sum = sum + a;
 end
+
+plot(b, sum / size(data, 2));
