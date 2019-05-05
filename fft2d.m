@@ -1,7 +1,7 @@
 clear all;
 close all;
 
-paths = getPaths('/home/ruiy/store/data/outroom/eve/2019-04-27-*-*-*/calculated_csi.bin');
+paths = getPaths('/home/ruiy/store/data/outroom/alice/2019-04-27-*-*-*/calculated_csi.bin');
 data = readData(paths); % 原始复数数据
 % data(255:257, :) = [];
 % data = data(:, 128: 256);
