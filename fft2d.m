@@ -1,11 +1,11 @@
 clear all;
 close all;
 
-paths = getPaths('/home/ruiy/store/data/outroom/alice/2019-04-27-*-*-*/calculated_csi.bin');
+paths = getPaths('/home/ruiy/store/data/outroom/eve/2019-04-27-*-*-*/calculated_csi.bin');
+% paths = getPaths('/home/ruiy/store/data/ruiy/alice/2019-04-01-*-*-*/calculated_csi.bin');
+
 data = readData(paths); % 原始复数数据
-% data(255:257, :) = [];
-% data = data(:, 128: 256);
-% data([1:10 500:511], :) = [];
+% data = data(:, 1:600);
 
 data = abs(data);
 
@@ -27,16 +27,26 @@ y= 1:size(data,1);
 mesh(meshX, meshY, data);
 
 figure(3)
+Z = mat2gray(data);
+imshow(Z, []);
+% h = entropy(Z)
+
+figure(4)
 Y = fft2(data);
 % Y = Y(128: end-128, 2: end);
 % Y = Y(64: end-64, 2: end);
-Y = fftshift(Y);
+% Y = fftshift(Y);
 % imagesc(angle(Y));
 Z = log(abs(Y)+1);
 Z = mat2gray(Z);
-imshow(Z, [])
+imshow(Z, []);
 
-figure(4)
+% saveas(gcf, 'entropy.png');
+% img = imread('entropy.png');
+h = entropy(Z)
+
+
+figure(5)
 x= 1:size(Y, 2);
 y= 1:size(Y, 1);
 [meshX, meshY]=meshgrid(x,y);
