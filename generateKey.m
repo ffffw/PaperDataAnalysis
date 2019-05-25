@@ -14,7 +14,7 @@ paths = {
 };
 
 % paths = {
-%    '/home/ruiy/store/data/experiment/indoor-people-move'
+%   '/home/ruiy/store/data/experiment/indoor-trolly-move'
 % };
 
 crcNo = 12;
@@ -72,12 +72,15 @@ for k = 1: length(paths)
             end
         end
         
-%        ratios = [ratios size(rightCode, 2)/size(aliceBlockCode, 2)];
+        % ratios = [ratios size(rightCode, 2)/size(aliceBlockCode, 2)];
         
-        keys{k, 1}{i, 1} = str2num(rightCode(:))';
-        
+        if size(rightCode, 2) ~= 0
+            rightCode = str2num(rightCode(:))';
+            keys{k, 1}{i, 1} = enc8b10b(rightCode(1:floor(size(rightCode, 2) / 8) * 8));
+        end
+            
     end
     
 end
 
-save("key.mat", "keys")
+save("keys2.mat", "keys")
