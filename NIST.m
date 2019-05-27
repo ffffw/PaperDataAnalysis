@@ -1,8 +1,9 @@
 clear all;
 close all;
 
-load keys8b10b.mat
+% load keys8b10b.mat
 % load keys.mat
+load keys3.mat
 addpath('NIST-methods');
 
 N = size(keys, 1);
@@ -11,7 +12,7 @@ ratios = zeros(8, N);
 for k = 1: N
 
     keyGroupNum = size(keys{k, 1}, 1);
-    keyGroupNum = 600;
+    % keyGroupNum = 600;
     
     for i = 1: keyGroupNum
         

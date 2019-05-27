@@ -2,15 +2,16 @@ close all;
 clear all;
 
 paths = {
-    '/home/ruiy/store/data/experiment/indoor-no-move-600', 
-    '/home/ruiy/store/data/experiment/indoor-people-move', 
-    '/home/ruiy/store/data/experiment/indoor-trolly-move',
-    '/home/ruiy/store/data/experiment/corridor-long-distance-no-move',
-    '/home/ruiy/store/data/experiment/corridor-people-move',
-    '/home/ruiy/store/data/experiment/corridor-trolly-move',
-    '/home/ruiy/store/data/experiment/outdoor-no-move',
-    '/home/ruiy/store/data/experiment/outdoor-people-move',
-    '/home/ruiy/store/data/experiment/outdoor-trolly-move'
+     '/home/ruiy/store/data/experiment/indoor-no-move', 
+     '/home/ruiy/store/data/experiment/indoor-people-move', 
+     '/home/ruiy/store/data/experiment/indoor-trolly-move',
+      '/home/ruiy/store/data/experiment/corridor-short-distance-no-move',
+     '/home/ruiy/store/data/experiment/corridor-long-distance-no-move',
+%       '/home/ruiy/store/data/experiment/corridor-people-move',
+     '/home/ruiy/store/data/experiment/corridor-trolly-move',
+     '/home/ruiy/store/data/experiment/outdoor-no-move',
+     '/home/ruiy/store/data/experiment/outdoor-people-move',
+     '/home/ruiy/store/data/experiment/outdoor-trolly-move'
 };
 
 % paths = {
@@ -29,10 +30,35 @@ for k = 1: length(paths)
     aliceData = abs(readData(alicePaths));
     bobData = abs(readData(bobPaths));
     
+    aliceData = aliceData(:, 1:600);
+    bobData = bobData(:, 1:600);
+    
     N = size(aliceData, 2);
     aliceData(256, :) = [];
     bobData(256, :) = [];
     
+    % 每4个取平均
+    i = 1;
+    j = 1;
+    avgNum = 10;
+    tmp = [];
+    while i+avgNum-1 <= size(aliceData, 1)
+        tmp = [tmp; mean(aliceData(i:i+avgNum-1, :))];
+        i = i + avgNum;
+        j = j + 1;
+    end
+    aliceData = tmp;
+    
+    i = 1;
+    j = 1;
+    tmp = [];
+    while i+avgNum-1 <= size(bobData, 1)
+        tmp = [tmp; mean(bobData(i:i+avgNum-1, :))];
+        i = i + avgNum;
+        j = j + 1;
+    end
+    bobData = tmp;
+   
     normScale = 127;
     L = 7;
     delta = 4;
@@ -76,11 +102,12 @@ for k = 1: length(paths)
         
         if size(rightCode, 2) ~= 0
             rightCode = str2num(rightCode(:))';
-            keys{k, 1}{i, 1} = enc8b10b(rightCode(1:floor(size(rightCode, 2) / 8) * 8));
+            % keys{k, 1}{i, 1} = enc8b10b(rightCode(1:floor(size(rightCode, 2) / 8) * 8));
+            keys{k, 1}{i, 1} = rightCode;
         end
             
     end
     
 end
 
-save("keys2.mat", "keys")
+save("keys3.mat", "keys")
