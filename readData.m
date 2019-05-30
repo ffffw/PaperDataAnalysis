@@ -14,6 +14,8 @@ complexData = floatData(1:2:end) + 1j * floatData(2:2:end);
 
 data = [data complexData];
 
+fclose(file);
+
 end
 
 end

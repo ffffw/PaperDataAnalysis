@@ -3,7 +3,7 @@ close all;
 
 % load keys8b10b.mat
 % load keys.mat
-load keys3.mat
+load keys_avg8.mat
 addpath('NIST-methods');
 
 N = size(keys, 1);

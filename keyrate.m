@@ -2,16 +2,16 @@ close all;
 clear all;
 
 paths = {
-     '/home/ruiy/store/data/experiment/indoor-no-move', 
-     '/home/ruiy/store/data/experiment/indoor-people-move', 
-     '/home/ruiy/store/data/experiment/indoor-trolly-move',
-      '/home/ruiy/store/data/experiment/corridor-short-distance-no-move',
-     '/home/ruiy/store/data/experiment/corridor-long-distance-no-move',
+     '/home/ruiy/store/data/experiment/indoor-no-move-600', 
+%     '/home/ruiy/store/data/experiment/indoor-people-move', 
+%     '/home/ruiy/store/data/experiment/indoor-trolly-move',
+%      '/home/ruiy/store/data/experiment/corridor-short-distance-no-move',
+%     '/home/ruiy/store/data/experiment/corridor-long-distance-no-move',
 %       '/home/ruiy/store/data/experiment/corridor-people-move',
-     '/home/ruiy/store/data/experiment/corridor-trolly-move',
-     '/home/ruiy/store/data/experiment/outdoor-no-move',
-     '/home/ruiy/store/data/experiment/outdoor-people-move',
-     '/home/ruiy/store/data/experiment/outdoor-trolly-move'
+%     '/home/ruiy/store/data/experiment/corridor-trolly-move',
+%     '/home/ruiy/store/data/experiment/outdoor-no-move',
+%     '/home/ruiy/store/data/experiment/outdoor-people-move',
+%     '/home/ruiy/store/data/experiment/outdoor-trolly-move'
 };
 
 % paths = {
@@ -20,44 +20,56 @@ paths = {
 
 crcNo = 12;
 
-keys = cell(length(paths), 1);
-for k = 1: length(paths)
-    
-    path = char(paths(k));
+k = 1;
+period = 32;
+
+rates = [];
+
+ path = char(paths(k));
     alicePaths = getPaths([path, '/alice/*-*-*-*-*-*/calculated_csi.bin']);
     bobPaths = getPaths([path, '/bob/*-*-*-*-*-*/calculated_csi.bin']);
 
-    aliceData = abs(readData(alicePaths));
-    bobData = abs(readData(bobPaths));
+    aliceDataOrg = abs(readData(alicePaths));
+    bobDataOrg = abs(readData(bobPaths));
     
-    aliceData = aliceData(:, 1:600);
-    bobData = bobData(:, 1:600);
+    aliceDataOrg = aliceDataOrg(:, 1:10);
+    bobDataOrg = bobDataOrg(:, 1:10);
     
-    N = size(aliceData, 2);
-    aliceData(256, :) = [];
-    bobData(256, :) = [];
+    N = size(aliceDataOrg, 2);
+    aliceDataOrg(256, :) = [];
+    bobDataOrg(256, :) = [];
     
-    % 每4个取平均
-    i = 1;
-    j = 1;
-    avgNum = 8;
-    tmp = [];
-    while i+avgNum-1 <= size(aliceData, 1)
-        tmp = [tmp; mean(aliceData(i:i+avgNum-1, :))];
-        i = i + avgNum;
-        j = j + 1;
+    
+    
+for avgNum = 1:20
+    
+    if avgNum ~= 1
+    
+        % 每4个取平均
+        i = 1;
+        j = 1;
+
+        tmp = [];
+        while i+avgNum-1 <= size(aliceDataOrg, 1)
+            tmp = [tmp; mean(aliceDataOrg(i:i+avgNum-1, :))];
+            i = i + avgNum;
+            j = j + 1;
+        end
+        aliceData = tmp;
+
+        i = 1;
+        j = 1;
+        tmp = [];
+        while i+avgNum-1 <= size(bobDataOrg, 1)
+            tmp = [tmp; mean(bobDataOrg(i:i+avgNum-1, :))];
+            i = i + avgNum;
+            j = j + 1;
+        end
+        bobData = tmp;
+    else
+        aliceData = aliceDataOrg;
+        bobData = bobDataOrg;
     end
-    aliceData = tmp;
-    
-    i = 1;
-    j = 1;
-    tmp = [];
-    while i+avgNum-1 <= size(bobData, 1)
-        tmp = [tmp; mean(bobData(i:i+avgNum-1, :))];
-        i = i + avgNum;
-        j = j + 1;
-    end
-    bobData = tmp;
    
     normScale = 127;
     L = 7;
@@ -75,11 +87,8 @@ for k = 1: length(paths)
         aliceData(:, i) = floor(aliceData(:, i) / pow2(delta));        
         bobData(:, i) = floor(bobData(:, i) / pow2(delta));
     end
-    
-    ratios = [];
-    
-    keys{k, 1} = cell(N, 1);
-    
+           
+    cnt = 0;
     for i = 1: N
         aliceGrayCode = num2gray_vector(aliceData(:, i), L - delta)';
         aliceGrayCode = aliceGrayCode(:)';
@@ -99,15 +108,12 @@ for k = 1: length(paths)
         end
         
         % ratios = [ratios size(rightCode, 2)/size(aliceBlockCode, 2)];
-        
-        if size(rightCode, 2) ~= 0
-            rightCode = str2num(rightCode(:))';
-            % keys{k, 1}{i, 1} = enc8b10b(rightCode(1:floor(size(rightCode, 2) / 8) * 8));
-            keys{k, 1}{i, 1} = rightCode;
-        end
-            
+        cnt = cnt + numel(rightCode);
     end
+    
+    rates = [rates cnt / period];
     
 end
 
-save("keys_avg8.mat", "keys")
+plot(4:20 , rates(4:20));
+set(gca, 'FontSize', 28);

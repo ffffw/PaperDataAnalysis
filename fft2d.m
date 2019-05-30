@@ -43,8 +43,8 @@ data = data - avg;
 energe = sum(data .* data);
 data = data ./ sqrt(energe);
 
-% data = repmat(data(:, 1), 1, 600);
-data = repmat([1], 600, 511);
+data = repmat(data(:, 1), 1, 600);
+% data = repmat([1], 600, 511);
 
 figure(1)
 imagesc(data);
