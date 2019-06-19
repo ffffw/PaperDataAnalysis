@@ -106,8 +106,10 @@ end
 
 figure;
 save('disAccord.mat', 'barData');
-b = bar(barData);
-ch = get(b,'children');
+b = bar(barData, 'FaceColor', 'flat');
+b(1).CData = [0 0 0];
+b(2).CData = [1 1 1];
+% ch = get(b,'children');
 % set(ch{1},'facecolor',[0 0 0])
 % set(ch{2},'facecolor',[1 1 1])
 grid on;

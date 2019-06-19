@@ -81,10 +81,11 @@ end
 save('dcorr.mat', 'barData');
 
 figure;
-b = bar(barData);
-ch = get(b,'children');
-% set(ch{1},'facecolor',[0 0 0])
-% set(ch{2},'facecolor',[1 1 1])
+b = bar(barData, 'FaceColor', 'flat');
+b(1).CData = [0 0 0];
+b(2).CData = [1 1 1];
+
+% set(ch,'FaceVertexCData',[0 0 1;0 1 1]);
 grid on;
 set(gca, 'FontSize', 28);
 set(gca, 'XTickLabel', {'室内-方式1','室内-方式2','室内-方式3','走廊-方式1','走廊-方式2','走廊-方式3','室外-方式1', '室外-方式2', '室外-方式3'});

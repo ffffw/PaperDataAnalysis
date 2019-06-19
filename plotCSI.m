@@ -2,9 +2,9 @@ clear all;
 close all;
 
 paths = {
-     '/home/ruiy/store/data/experiment/indoor-no-move', 
-     '/home/ruiy/store/data/experiment/indoor-people-move',
-     '/home/ruiy/store/data/experiment/indoor-trolly-move',
+    '/home/ruiy/store/data/experiment/indoor-no-move', 
+      '/home/ruiy/store/data/experiment/indoor-people-move',
+      '/home/ruiy/store/data/experiment/indoor-trolly-move',
       %'/home/ruiy/store/data/experiment/corridor-short-distance-no-move',
      '/home/ruiy/store/data/experiment/corridor-long-distance-no-move',
      '/home/ruiy/store/data/experiment/corridor-people-move',
@@ -38,5 +38,6 @@ for k = 1: sceneNum
     set(gca, 'YLim', [0 600]); % Y轴 
     set(gca, 'YTick', [0:600:600]);
     set(gca, 'FontSize', 20);
-    
+    xlabel('测量次数');
+    ylabel('子载波数');
 end

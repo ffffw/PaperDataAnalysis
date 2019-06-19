@@ -33,7 +33,7 @@ data = readData(paths); % 原始复数数据
 data = data(:, 1:600);
 data = abs(data);
 
-% data = randn(511, 600); % 完全随机
+data = randn(511, 600); % 完全随机
 
 % 均值化为0
 avg = mean(data);
@@ -41,10 +41,10 @@ data = data - avg;
 
 % 归一化 
 energe = sum(data .* data);
-data = data ./ sqrt(energe);
+% data = data ./ sqrt(energe);
 
-data = repmat(data(:, 1), 1, 600);
-% data = repmat([1], 600, 511);
+% data = repmat(data(:, 1), 1, 600);
+data = repmat([1], 600, 511);
 
 figure(1)
 imagesc(data);
@@ -54,6 +54,9 @@ x= 1:size(data,2);
 y= 1:size(data,1);
 [meshX, meshY]=meshgrid(x,y);
 mesh(meshX, meshY, data);
+xlabel('测量次数');
+ylabel('子载波数');
+set(gca, 'FontSize', 20);
 
 figure(3)
 Z = mat2gray(data);
@@ -81,4 +84,5 @@ x= 1:size(Y, 2);
 y= 1:size(Y, 1);
 [meshX, meshY]=meshgrid(x,y);
 mesh(meshX, meshY, abs(Y))
+
 

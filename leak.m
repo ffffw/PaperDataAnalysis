@@ -71,11 +71,12 @@ end
 save('leak.mat', 'barData');
 
 figure;
-b = bar(barData);
-ch = get(b,'children');
+b = bar(barData, 'FaceColor', 'flat');
+b.CData = [1 1 1];
+% ch = get(b,'children');
 % set(ch{1},'facecolor',[0 0 0])
 % set(ch{2},'facecolor',[1 1 1])
 grid on;
-set(gca, 'FontSize', 28);
+set(gca, 'FontSize', 18);
 set(gca, 'XTickLabel', {'室内-方式1','室内-方式2','室内-方式3','走廊-方式1','走廊-方式2','走廊-方式3','室外-方式1', '室外-方式2', '室外-方式3'});
-legend('\fontsize {28} 安全密钥比率');
+legend('\fontsize {18} 安全信息比率');
