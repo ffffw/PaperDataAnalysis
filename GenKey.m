@@ -1,9 +1,13 @@
 function [code] = GenKey(data)
 
+
 N = length(data);
 data((N + 1) / 2, :) = [];
-    
+
+
 N = length(data);
+
+
 % 每4个取平均
 i = 1;
 j = 1;
@@ -22,7 +26,7 @@ delta = 4;
 
 N = length(data);
 
-data = data * normScale / mean(data);
+data = data * normScale / max(data);
 data = round(data);
 
 
