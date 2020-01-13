@@ -63,7 +63,8 @@ for k = 1: length(paths)
     
     barData = [barData mean(ratios)];
 
-    figure;
+    % figure;
+    hold on
     plot(ratios);
 
 end

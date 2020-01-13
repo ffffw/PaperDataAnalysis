@@ -8,7 +8,7 @@ data((N + 1) / 2, :) = [];
 N = length(data);
 
 
-% 每4个取平均
+% 每avgNum个取平均
 i = 1;
 j = 1;
 avgNum = 2;

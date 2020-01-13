@@ -64,9 +64,11 @@ for k = 1: length(paths)
     end
 
     figure;
+    
     plot(coeffAB);
     hold on;
     plot(coeffAE);
+    set(gca, 'FontSize', 28);
 
     mAB = mean(coeffAB);
     mAE = mean(coeffAE);
