@@ -1,5 +1,5 @@
 function bob0=gen_key(alice0,snr)
-modbit1 = pskmod(alice0,2); %ÏàÒÆ¼ü¿Øµ÷ÖÆ
-modbit2= awgn(modbit1,snr,'measured');%bob¶ËÊÕµ½ĞÅºÅ
+modbit1 = pskmod(alice0,2); %ç›¸ç§»é”®æ§è°ƒåˆ¶
+modbit2= awgn(modbit1,snr,'measured');%bobç«¯æ”¶åˆ°ä¿¡å·
 bob0=pskdemod(modbit2,2);
 end

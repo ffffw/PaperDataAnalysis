@@ -1,5 +1,5 @@
 function [a1,block]=add_bits(a0,msg_len)
-%msg_len Ã¿×éÏûÏ¢³¤¶È  block ·Ö×éÊı
+%msg_len æ¯ç»„æ¶ˆæ¯é•¿åº¦  block åˆ†ç»„æ•°
 len=length(a0);
 if rem(len,msg_len)
     block=ceil(len/msg_len);

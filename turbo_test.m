@@ -31,25 +31,25 @@ en_output=encoderm( x, g, alpha, puncture );
 
 % r = en_output+sigma*randn(1,L_total*(2+puncture)); % received bits
 % ber_ori=sum(xor(en_output,r))/L_total;
-[r,ber_ori] = genkey( en_output,snr );
+% [r,ber_ori] = genkey( en_output,snr );
 
 % 1. encode(x) xor key1 xor key2
 
-% en_output = (en_output + 1) / 2;
-% encode_res = num2str(en_output')'
-% key1 = GenKey(abs(readData("/home/ruiy/store/data/experiment/indoor-no-move-600/alice/2019-04-01-10-14-41/calculated_csi.bin")))
-% key2 = GenKey(abs(readData("/home/ruiy/store/data/experiment/indoor-no-move-600/bob/2019-04-01-10-14-41/calculated_csi.bin")))
-% L = str2num(key1') - str2num(key2');
-% s = sum(~L(:)); %算逻辑矩阵中非零个数
-% key_consistent_rate = s / length(key1)
-% n_key = length(key1);
-% for i = 1: length(en_output)
-%     tx = xor(en_output(i), str2num(key1(mod(i - 1, n_key) + 1)));
-%     en_output(i) = xor(tx, str2num(key2(mod(i - 1, n_key) + 1)));
-% end
-% r = en_output;
-% encode_res = num2str(r')'
-% r = 2 * r - 1;
+en_output = (en_output + 1) / 2;
+encode_res = num2str(en_output')'
+key1 = GenKey(abs(readData("/home/ruiy/store/data/experiment/indoor-no-move-600/alice/2019-04-01-10-14-41/calculated_csi.bin")))
+key2 = GenKey(abs(readData("/home/ruiy/store/data/experiment/indoor-no-move-600/bob/2019-04-01-10-14-41/calculated_csi.bin")))
+L = str2num(key1') - str2num(key2');
+s = sum(~L(:)); %算逻辑矩阵中非零个数
+key_consistent_rate = s / length(key1)
+n_key = length(key1);
+for i = 1: length(en_output)
+    tx = xor(en_output(i), str2num(key1(mod(i - 1, n_key) + 1)));
+    en_output(i) = xor(tx, str2num(key2(mod(i - 1, n_key) + 1)));
+end
+r = en_output;
+encode_res = num2str(r')'
+r = 2 * r - 1;
 
 
 yk = demultiplex(r,alpha,puncture); % demultiplex to get input for decoder 1 and 2
