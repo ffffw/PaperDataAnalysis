@@ -2,16 +2,28 @@ clear all;
 close all;
 
 
+% paths = {
+%     '/home/ruiy/store/data/experiment/indoor-no-move-600', 
+%     '/home/ruiy/store/data/experiment/indoor-people-move', 
+%     '/home/ruiy/store/data/experiment/indoor-trolly-move',
+%     '/home/ruiy/store/data/experiment/corridor-short-distance-no-move',
+%     '/home/ruiy/store/data/experiment/corridor-people-move',
+%     '/home/ruiy/store/data/experiment/corridor-trolly-move',
+%     '/home/ruiy/store/data/experiment/outdoor-no-move',
+%     '/home/ruiy/store/data/experiment/outdoor-people-move',
+%     '/home/ruiy/store/data/experiment/outdoor-trolly-move'
+% };
+
 paths = {
-    '/home/ruiy/store/data/experiment/indoor-no-move-600', 
-    '/home/ruiy/store/data/experiment/indoor-people-move', 
-    '/home/ruiy/store/data/experiment/indoor-trolly-move',
-    '/home/ruiy/store/data/experiment/corridor-short-distance-no-move',
-    '/home/ruiy/store/data/experiment/corridor-people-move',
-    '/home/ruiy/store/data/experiment/corridor-trolly-move',
-    '/home/ruiy/store/data/experiment/outdoor-no-move',
-    '/home/ruiy/store/data/experiment/outdoor-people-move',
-    '/home/ruiy/store/data/experiment/outdoor-trolly-move'
+    '/home/ruiy/store/data/fdd-experiment/indoor-no-move', 
+    '/home/ruiy/store/data/fdd-experiment/indoor-people-move', 
+    '/home/ruiy/store/data/fdd-experiment/indoor-trolly-move',
+    '/home/ruiy/store/data/fdd-experiment/corridor-no-move',
+    '/home/ruiy/store/data/fdd-experiment/corridor-people-move',
+    '/home/ruiy/store/data/fdd-experiment/corridor-trolly-move',
+    '/home/ruiy/store/data/fdd-experiment/outdoor-no-move',
+    '/home/ruiy/store/data/fdd-experiment/outdoor-people-move',
+    '/home/ruiy/store/data/fdd-experiment/outdoor-trolly-move'
 };
 
 % paths = {'/home/ruiy/store/data/experiment/corridor-trolly-move'};
@@ -69,7 +81,7 @@ for k = 1: length(paths)
 
 end
 
-save('leak.mat', 'barData');
+save('fdd-leak.mat', 'barData');
 
 figure;
 b = bar(barData, 'FaceColor', 'flat');

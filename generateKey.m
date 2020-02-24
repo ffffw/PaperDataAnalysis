@@ -2,16 +2,15 @@ close all;
 clear all;
 
 paths = {
-     '/home/ruiy/store/data/experiment/indoor-no-move', 
-     '/home/ruiy/store/data/experiment/indoor-people-move', 
-     '/home/ruiy/store/data/experiment/indoor-trolly-move',
-      '/home/ruiy/store/data/experiment/corridor-short-distance-no-move',
-     '/home/ruiy/store/data/experiment/corridor-long-distance-no-move',
-%       '/home/ruiy/store/data/experiment/corridor-people-move',
-     '/home/ruiy/store/data/experiment/corridor-trolly-move',
-     '/home/ruiy/store/data/experiment/outdoor-no-move',
-     '/home/ruiy/store/data/experiment/outdoor-people-move',
-     '/home/ruiy/store/data/experiment/outdoor-trolly-move'
+     '/home/ruiy/store/data/fdd-experiment/indoor-no-move', 
+     '/home/ruiy/store/data/fdd-experiment/indoor-people-move', 
+     '/home/ruiy/store/data/fdd-experiment/indoor-trolly-move',
+     '/home/ruiy/store/data/fdd-experiment/corridor-no-move',
+     '/home/ruiy/store/data/fdd-experiment/corridor-people-move',
+     '/home/ruiy/store/data/fdd-experiment/corridor-trolly-move',
+     '/home/ruiy/store/data/fdd-experiment/outdoor-no-move',
+     '/home/ruiy/store/data/fdd-experiment/outdoor-people-move',
+     '/home/ruiy/store/data/fdd-experiment/outdoor-trolly-move'
 };
 
 % paths = {
@@ -37,27 +36,30 @@ for k = 1: length(paths)
     aliceData(256, :) = [];
     bobData(256, :) = [];
     
-    % 每4个取平均
-    i = 1;
-    j = 1;
-    avgNum = 8;
-    tmp = [];
-    while i+avgNum-1 <= size(aliceData, 1)
-        tmp = [tmp; mean(aliceData(i:i+avgNum-1, :))];
-        i = i + avgNum;
-        j = j + 1;
+    avgNum = 1; % 每avgNum个取平均
+    if avgNum ~= 1
+        i = 1;
+        j = 1;
+        tmp = [];
+        while i+avgNum-1 <= size(aliceData, 1)
+            tmp = [tmp; mean(aliceData(i:i+avgNum-1, :))];
+            i = i + avgNum;
+            j = j + 1;
+        end
+        aliceData = tmp;
     end
-    aliceData = tmp;
     
-    i = 1;
-    j = 1;
-    tmp = [];
-    while i+avgNum-1 <= size(bobData, 1)
-        tmp = [tmp; mean(bobData(i:i+avgNum-1, :))];
-        i = i + avgNum;
-        j = j + 1;
+    if avgNum ~= 1
+        i = 1;
+        j = 1;
+        tmp = [];
+        while i+avgNum-1 <= size(bobData, 1)
+            tmp = [tmp; mean(bobData(i:i+avgNum-1, :))];
+            i = i + avgNum;
+            j = j + 1;
+        end
+        bobData = tmp;
     end
-    bobData = tmp;
    
     normScale = 127;
     L = 7;
@@ -110,4 +112,4 @@ for k = 1: length(paths)
     
 end
 
-save("keys_avg8.mat", "keys")
+save("fdd_keys_avg1.mat", "keys")

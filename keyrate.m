@@ -2,7 +2,7 @@ close all;
 clear all;
 
 paths = {
-     '/home/ruiy/store/data/experiment/indoor-no-move-600', 
+     '/home/ruiy/store/data/fdd-experiment/indoor-no-move', 
 %     '/home/ruiy/store/data/experiment/indoor-people-move', 
 %     '/home/ruiy/store/data/experiment/indoor-trolly-move',
 %      '/home/ruiy/store/data/experiment/corridor-short-distance-no-move',
@@ -21,7 +21,7 @@ paths = {
 crcNo = 12;
 
 k = 1;
-period = 32;
+period = 63;
 
 rates = [];
 

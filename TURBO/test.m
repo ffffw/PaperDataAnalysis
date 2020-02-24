@@ -29,12 +29,12 @@ x = round(rand(1, L_total-m)); % message bits
 en_output=encoderm( x, g, alpha, puncture ) ;
 % r = en_output+sigma*randn(1,L_total*(2+puncture)); % received bits
 % ber_ori=sum(xor(en_output,r))/L_total;
-% [r,ber_ori] = genkey( en_output,snr );
+[r,ber_ori] = genkey( en_output,snr );
 
 % 1. encode(x) xor key1 xor key2
 
-key1 = GenKey(readData("/home/ruiy/store/data/experiment/indoor-no-move-600/alice/2019-04-01-10-14-41/calculated_csi.bin"))
-key2 = GenKey(readData("/home/ruiy/store/data/experiment/indoor-no-move-600/bob/2019-04-01-10-14-41/calculated_csi.bin"))
+% key1 = GenKey(abs(readData("/home/ruiy/store/data/experiment/indoor-no-move-600/alice/2019-04-01-10-14-41/calculated_csi.bin")))
+% key2 = GenKey(abs(readData("/home/ruiy/store/data/experiment/indoor-no-move-600/bob/2019-04-01-10-14-41/calculated_csi.bin")))
 
 yk = demultiplex(r,alpha,puncture); % demultiplex to get input for decoder 1 and 2
 % Scale the received bits      

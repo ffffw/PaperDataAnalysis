@@ -68,7 +68,7 @@ end
 if ind_dec == 1
    mlstate(L_total+1) = 1;
 else
-   mlstate(L_total+1) = find( path_metric(:,L_total+1)==max(path_metric(:,L_total+1)) );
+   mlstate(L_total+1) = find( path_metric(:,L_total+1)==max(path_metric(:,L_total+1)), 1);
 end
 
 % Trace back to get the estimated bits, and the most likely path

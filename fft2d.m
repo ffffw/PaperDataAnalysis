@@ -18,22 +18,21 @@ paths = getPaths('/home/ruiy/store/data/experiment/outdoor-trolly-move/alice/*-*
 
 
 
-% paths = getPaths('/home/ruiy/store/data/experiment/indoor-no-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-% paths = getPaths('/home/ruiy/store/data/experiment/indoor-people-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-% paths = getPaths('/home/ruiy/store/data/experiment/indoor-trolly-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-% paths = getPaths('/home/ruiy/store/data/experiment/corridor-no-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-% paths = getPaths('/home/ruiy/store/data/experiment/corridor-people-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-% paths = getPaths('/home/ruiy/store/data/experiment/corridor-trolly-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-% paths = getPaths('/home/ruiy/store/data/experiment/outdoor-no-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-% paths = getPaths('/home/ruiy/store/data/experiment/outdoor-people-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-% paths = getPaths('/home/ruiy/store/data/experiment/outdoor-trolly-move/bob/*-*-*-*-*-*/calculated_csi.bin');
-
+% paths = getPaths('/home/ruiy/store/data/fdd-experiment/indoor-no-move/bob/*-*-*-*-*-*/calculated_csi.bin');
+% paths = getPaths('/home/ruiy/store/data/fdd-experiment/indoor-people-move/bob/*-*-*-*-*-*/calculated_csi.bin');
+% paths = getPaths('/home/ruiy/store/data/fdd-experiment/indoor-trolly-move/bob/*-*-*-*-*-*/calculated_csi.bin');
+% paths = getPaths('/home/ruiy/store/data/fdd-experiment/corridor-no-move/bob/*-*-*-*-*-*/calculated_csi.bin');
+% paths = getPaths('/home/ruiy/store/data/fdd-experiment/corridor-people-move/bob/*-*-*-*-*-*/calculated_csi.bin');
+% paths = getPaths('/home/ruiy/store/data/fdd-experiment/corridor-trolly-move/bob/*-*-*-*-*-*/calculated_csi.bin');
+% paths = getPaths('/home/ruiy/store/data/fdd-experiment/outdoor-no-move/bob/*-*-*-*-*-*/calculated_csi.bin');
+% paths = getPaths('/home/ruiy/store/data/fdd-experiment/outdoor-people-move/bob/*-*-*-*-*-*/calculated_csi.bin');
+paths = getPaths('/home/ruiy/store/data/fdd-experiment/outdoor-trolly-move/bob/*-*-*-*-*-*/calculated_csi.bin');
 
 data = readData(paths); % 原始复数数据
 data = data(:, 1:600);
 data = abs(data);
 
-data = randn(511, 600); % 完全随机
+% data = randn(511, 600); % 完全随机
 
 % 均值化为0
 avg = mean(data);
@@ -44,7 +43,7 @@ energe = sum(data .* data);
 % data = data ./ sqrt(energe);
 
 % data = repmat(data(:, 1), 1, 600);
-data = repmat([1], 600, 511);
+% data = repmat([1], 600, 511);
 
 figure(1)
 imagesc(data);

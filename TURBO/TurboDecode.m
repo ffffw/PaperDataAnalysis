@@ -1,12 +1,13 @@
 function xhat = TurboDecode(encode_msg, alpha, puncture, L_total, niter, L_c, dec_alg, g)
 
-[n,K] = size(g);
+[n, K] = size(g);
 m = K - 1; %m=2;
 
 
 yk = demultiplex(encode_msg, alpha,puncture); % demultiplex to get input for decoder 1 and 2
       
-rec_s = 0.5*L_c*yk; % Scale the received bits
+rec_s = 0.5 * L_c * yk; % Scale the received bits
+% rec_s = yk;
 
 % Initialize extrinsic information 初始化外信息     
 L_e(1: L_total) = zeros(1, L_total);
