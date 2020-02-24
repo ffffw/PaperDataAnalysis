@@ -1,4 +1,4 @@
-function [code] = GenKey(data)
+function [code] = GenKey(data, avgNum) % data为csi，avgNum为降采样率（不降采样，则填入为1）
 
 
 N = length(data);
@@ -6,19 +6,19 @@ data((N + 1) / 2, :) = [];
 
 
 N = length(data);
-
-
+ 
 % 每avgNum个取平均
-i = 1;
-j = 1;
-avgNum = 2;
-tmp = [];
-while i+avgNum-1 <= N
-    tmp = [tmp; mean(data(i:i+avgNum-1))];
-    i = i + avgNum;
-    j = j + 1;
+if avgNum ~= 1
+    i = 1;
+    j = 1;
+    tmp = [];
+    while i+avgNum-1 <= N
+        tmp = [tmp; mean(data(i:i+avgNum-1))];
+        i = i + avgNum;
+        j = j + 1;
+    end
+    data = tmp;
 end
-data = tmp;
 
 normScale = 127;
 L = 7;
