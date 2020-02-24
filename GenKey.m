@@ -1,4 +1,4 @@
-function [code] = GenKey(data, avgNum) % data为csi，avgNum为降采样率（不降采样，则填入为1）
+function [code] = GenKey(data, avgNum, norm_scale, L, delta) % data为csi，avgNum为降采样率（不降采样，则填入为1）
 
 
 N = length(data);
@@ -20,19 +20,7 @@ if avgNum ~= 1
     data = tmp;
 end
 
-normScale = 127;
-L = 7;
-delta = 4;
-
-N = length(data);
-
-data = data * normScale / max(data);
-data = round(data);
-
-
-for i = 1: N
-    data(i) = floor(data(i) / pow2(delta));    
-end
+data = MyNormlize(data, norm_scale, delta);
 
 code = [];
 
