@@ -25,7 +25,7 @@ L = 7;
 delta = 4;
 
 keys = cell(length(paths), 1);
-
+N=10;
 for k = 1: length(paths)
     
     path = char(paths(k));
@@ -35,10 +35,10 @@ for k = 1: length(paths)
     aliceData = abs(readData(alicePaths));
     bobData = abs(readData(bobPaths));
     
-    aliceData = aliceData(:, 1:10);
-    bobData = bobData(:, 1:10); 
+    aliceData = aliceData(:, 1:N);
+    bobData = bobData(:, 1:N); 
     
-    N = size(aliceData, 2);
+    %N = size(aliceData, 2);
 
     
     keys{k, 1} = cell(N, 1);
